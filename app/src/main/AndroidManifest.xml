@@ -38,7 +38,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".IndexActivity"
-            android:label="Home"></activity>
+            android:label="Home" />
         <activity
             android:name=".LocalActivity"
             android:parentActivityName=".IndexActivity">
@@ -89,7 +89,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebViewActivity" android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".WebViewActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".qrcode.QrCodeIndexActivity"></activity>
     </application>
 
 </manifest>
