@@ -7,10 +7,9 @@ import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
-import com.sumslack.opensource.extend.compontent.RichText;
-import com.sumslack.opensource.extend.module.PhoneInfoModule;
-import com.sumslack.opensource.extend.module.TestModule;
-import com.sumslack.opensource.weex.SumslackModule;
+import com.sumslack.opensource.weex.compontent.RichText;
+import com.sumslack.opensource.weex.module.PhoneInfoModule;
+import com.sumslack.opensource.weex.module.SumslackModule;
 
 /**
  * 注意要在Manifest中启用
@@ -32,15 +31,16 @@ public class WXApplication extends Application {
         InitConfig config = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
         WXSDKEngine.initialize(this, config);
         try {
-            WXSDKEngine.registerModule("poneInfo", PhoneInfoModule.class);
-            WXSDKEngine.registerModule("TestModule", TestModule.class);
-            WXSDKEngine.registerComponent("rich", RichText.class, false);
-
+            //Sumslack扩展的Weex JSBridge
             WXSDKEngine.registerModule("event", SumslackModule.class);
+            //手机基本信息
+            WXSDKEngine.registerModule("poneInfo", PhoneInfoModule.class);
+            //扩展组件测试
+            WXSDKEngine.registerComponent("rich", RichText.class, false);
         } catch (WXException e) {
             e.printStackTrace();
         }
-
+        //扫描二维码
         ZXingLibrary.initDisplayOpinion(this);
     }
 

@@ -40,12 +40,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.just.agentweb.AgentWeb;
+import com.sumslack.opensource.eventbus.MsgEvent;
+import com.sumslack.opensource.weex.module.SumslackModule;
 import com.taobao.weex.IWXRenderListener;
 import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.common.WXRenderStrategy;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.sumslack.opensource.utils.ImageUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -196,6 +202,7 @@ public class IndexActivity extends BaseActivity implements IWXRenderListener{
         options.put(WXSDKInstance.BUNDLE_URL, TEST_URL);
         mWXSDKInstance.renderByUrl("WeexDemoPage",TEST_URL,options,null, WXRenderStrategy.APPEND_ONCE);
 
+
         //接收广播的过滤器
         intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
@@ -224,6 +231,9 @@ public class IndexActivity extends BaseActivity implements IWXRenderListener{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode,Intent data) {
+        if(mWXSDKInstance!=null)
+            mWXSDKInstance.onActivityResult(requestCode,resultCode,data);
+
         switch (requestCode ){
             case REQ_QRCODE_RESULT:
                 if(data!=null){
@@ -364,6 +374,7 @@ public class IndexActivity extends BaseActivity implements IWXRenderListener{
         String[] permissions = new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CALL_PHONE,
                 Manifest.permission.CAMERA
         };
         List<String> data = new ArrayList<>();//存储未申请的权限

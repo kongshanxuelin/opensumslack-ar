@@ -1,4 +1,4 @@
-package com.sumslack.opensource.extend.compontent;
+package com.sumslack.opensource.weex.compontent;
 
 import android.content.Context;
 import android.graphics.Color;

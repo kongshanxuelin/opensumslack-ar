@@ -1,4 +1,4 @@
-package com.sumslack.opensource.extend.module;
+package com.sumslack.opensource.weex.module;
 
 import android.os.Build;
 
@@ -21,7 +21,10 @@ public class PhoneInfoModule extends WXModule {
     infos.put("board", Build.BOARD);
     infos.put("brand", Build.BRAND);
     infos.put("device", Build.DEVICE);
+    infos.put("display", Build.DISPLAY);
     infos.put("model", Build.MODEL);
+    infos.put("id",Build.ID);
+    infos.put("version",String.valueOf(Build.VERSION.SDK_INT));
     callback.invoke(infos);
   }
 }

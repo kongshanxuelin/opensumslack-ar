@@ -4,7 +4,7 @@ android {
     buildToolsVersion "27.0.2"
 
     defaultConfig {
-        applicationId "com.weex.sample"
+        applicationId "com.sumslack.opensource"
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
@@ -51,6 +51,7 @@ dependencies {
      * 二维码扫描
      */
     compile 'cn.yipianfengye.android:zxing-library:2.2'
+
     /**
      * 浏览器扩展
      */
@@ -60,6 +61,14 @@ dependencies {
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     compile 'com.github.lzyzsd:jsbridge:1.0.4'
     compile 'com.google.code.gson:gson:2.8.2'
+    /**
+     * EventBus
+     */
+    compile 'org.greenrobot:eventbus:3.1.1'
+    /*
+    Show ActionSheet Menu
+     */
+    compile 'com.baoyz.actionsheet:library:1.1.7'
 
     testCompile 'junit:junit:4.12'
 }
