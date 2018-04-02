@@ -14,9 +14,11 @@ OpenSumslack的安卓项目
 
 应用下载：
 
+OpenSumslack安卓版下载：
 
 ![OpenSumslack安卓版下载](http://wxapps.sumslack.com/opensumslack/dl_opensumslack.jpg)
 
+OpenSumslack iOS版下载：
 
 ![OpenSumslack iOS版下载 - 扫一扫](http://h5.sumslack.com/pindazi.png)
 
