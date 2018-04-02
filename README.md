@@ -12,9 +12,13 @@ OpenSumslack的安卓项目
 
 <img src='http://wxapps.sumslack.com/demo2/preview.png' alt='我的'/>
 
-使用WeexPlayground扫描预览效果：
-<img src='http://wxapps.sumslack.com/demo2/demo.png' alt='扫描二维码预览效果'/>
+应用下载：
 
+
+![OpenSumslack安卓版下载](http://wxapps.sumslack.com/opensumslack/dl_opensumslack.jpg)
+
+
+![OpenSumslack iOS版下载 - 扫一扫](http://h5.sumslack.com/pindazi.png)
 
 ### 第三方接口
 高德地图的debug sha1：
