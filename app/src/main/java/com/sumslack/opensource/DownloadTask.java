@@ -3,10 +3,14 @@ package com.sumslack.opensource;
 import android.os.AsyncTask;
 import android.os.Environment;
 
+import com.taobao.weex.bridge.JSCallback;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,9 +29,35 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer> {
     private boolean isCanceled = false;
     private boolean isPaused = false;
     private int lastProgress;
+    private JSCallback callback;
 
-    public DownloadTask(DownloadListener listener){
+    private void callJSFuncProgress(long bytesDownloaded,long totalSize ){
+        Map paramMap = new HashMap();
+        paramMap.put("status","progress");
+        paramMap.put("bytesDownloaded",bytesDownloaded);
+        paramMap.put("totalSize",totalSize);
+        if(callback!=null)
+            callback.invokeAndKeepAlive(paramMap);
+    }
+    private void callJSFuncSuccess(String info,String tempFilePath){
+        Map paramMap = new HashMap();
+        paramMap.put("status","success");
+        paramMap.put("info",info);
+        paramMap.put("tempFilePath",tempFilePath);
+        if(callback!=null)
+            callback.invokeAndKeepAlive(paramMap);
+    }
+    private void callJSFuncFail(String info){
+        Map paramMap = new HashMap();
+        paramMap.put("status","fail");
+        paramMap.put("info",info);
+        if(callback!=null)
+            callback.invokeAndKeepAlive(paramMap);
+    }
+
+    public DownloadTask(DownloadListener listener, JSCallback callback){
         this.listener = listener;
+        this.callback = callback;
     }
 
     @Override
@@ -97,21 +127,26 @@ public class DownloadTask extends AsyncTask<String,Integer,Integer> {
                 int len;
                 while((len=is.read(b))!=-1){
                     if(isCanceled){
+                        callJSFuncFail("下载被取消");
                         return TYPE_CANCELED;
                     }else if(isPaused){
+                        callJSFuncFail("下载被暂停");
                         return TYPE_PARSED;
                     }else{
                         total += len;
                         savedFile.write(b,0,len);
                         int progress = (int) ((total+downloadedLength)*100 / contentLenth);
                         publishProgress(progress);
+                        callJSFuncProgress(downloadedLength,contentLenth);
                     }
                 }
                 response.body().close();
+                callJSFuncSuccess("下载成功",directory + fileName);
                 return TYPE_SUCCESS;
             }
         }catch (Exception e){
             e.printStackTrace();
+            callJSFuncFail(e.getMessage());
         }finally {
             try{
                 if(is!=null){

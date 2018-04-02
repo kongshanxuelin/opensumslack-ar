@@ -5,9 +5,23 @@
         android:icon="@drawable/scan"
         android:title="扫一扫"
         app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_refresh"
+        android:icon="@drawable/refresh"
+        android:title="刷新"
+        app:showAsAction="ifRoom" />
     <!-- 设置, 在溢出菜单中展示 -->
     <item android:id="@+id/action_scanByAlbum"
         android:icon="@drawable/album"
         android:title="相册中选"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_lbs_select"
+        android:title="地点选取"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_lbs_loc"
+        android:title="导航目标"
+        app:showAsAction="never" />
+
 </menu>

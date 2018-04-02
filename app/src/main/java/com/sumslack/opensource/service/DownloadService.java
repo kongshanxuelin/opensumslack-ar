@@ -12,16 +12,19 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
-
 import com.sumslack.opensource.DownloadListener;
 import com.sumslack.opensource.DownloadTask;
+import com.sumslack.opensource.NetworkActivity;
 import com.sumslack.opensource.R;
+import com.taobao.weex.bridge.JSCallback;
 
 import java.io.File;
 
 public class DownloadService extends Service {
     private DownloadTask downloadTask;
     private String downloadUrl;
+
+
     private DownloadListener listener = new DownloadListener() {
         @Override
         public void onProgress(int progress) {
@@ -62,10 +65,11 @@ public class DownloadService extends Service {
 
 
     public class DownloadBinder extends Binder{
-        public void startDownload(String url){
+
+        public void startDownload(String url, JSCallback callback){
             if(downloadTask == null){
                 downloadUrl = url;
-                downloadTask = new DownloadTask(listener);
+                downloadTask = new DownloadTask(listener,callback);
                 downloadTask.execute(downloadUrl);
                 startForeground(1,getNotification("准备下载中...",0));
             }
@@ -108,18 +112,18 @@ public class DownloadService extends Service {
     }
 
     private Notification getNotification(String title,int progress){
-//        Intent intent = new Intent(this, SecActivity.class);
-//        PendingIntent pi = PendingIntent.getActivity(this,0,intent,0);
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-//        builder.setSmallIcon(R.drawable.near);
-//        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
-//        builder.setContentIntent(pi);
-//        builder.setContentTitle(title);
-//        if(progress>0){
-//            builder.setContentText(progress + " % ");
-//            builder.setProgress(100,progress,false);
-//        }
-//        return builder.build();
-        return null;
+        Intent intent = new Intent(this, NetworkActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.drawable.near);
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+        builder.setContentIntent(pi);
+        builder.setContentTitle(title);
+        if(progress>0){
+            builder.setContentText(progress + " % ");
+            builder.setProgress(100,progress,false);
+        }
+        return builder.build();
+//        return null;
     }
 }

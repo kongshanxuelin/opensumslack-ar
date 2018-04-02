@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sumslack.opensource">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 手机震动权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -29,13 +31,43 @@
     <!-- WebView -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+    <!-- 高德API -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
     <application
         android:name=".WXApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:overrideLibrary="com.taobao.android.dexposed">
+
+        <!-- 高德API Key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="e4f67b3c72249ce1de0be8d9a41b1c6a" />
+
+        <receiver
+            android:name="com.sumslack.opensource.weex.util.CoverageDataDumper"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.taobao.weex.DUMP_COVERAGE_DATA"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".IndexActivity"
             android:label="Home" />
@@ -82,17 +114,48 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".WebViewActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".qrcode.QrCodeIndexActivity"></activity>
+        <activity android:name=".qrcode.QrCodeIndexActivity" />
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".RouteNaviActivity" />
+
+        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".location.CalculateRouteActivity" />
+        <activity android:name=".location.StrategyChooseActivity"></activity>
+
+        <!--
+            相册选取图片，预览：https://github.com/easonline/AndroidImagePicker
+        -->
+        <activity
+            android:name="com.pizidea.imagepicker.ui.activity.ImageCropActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar"
+            >
+
+        </activity>
+
+        <activity
+            android:name="com.pizidea.imagepicker.ui.activity.ImagePreviewActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+
+
+        </activity>
+
+        <activity
+            android:name="com.pizidea.imagepicker.ui.activity.ImagesGridActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+
+        <activity android:name=".image.MultiPreviewActivity"></activity>
+
     </application>
 
 </manifest>

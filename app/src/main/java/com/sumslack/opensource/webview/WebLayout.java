@@ -37,10 +37,8 @@ public class WebLayout implements IWebLayout {
 
     @Nullable
     @Override
-    public WebView getWeb() {
+    public WebView getWebView() {
         return mWebView;
     }
-
-
 
 }

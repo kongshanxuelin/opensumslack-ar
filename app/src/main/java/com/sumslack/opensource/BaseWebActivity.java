@@ -76,7 +76,8 @@ public class BaseWebActivity extends BaseActivity{
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+                //showDialog();
+                BaseWebActivity.this.finish();
             }
         });
 

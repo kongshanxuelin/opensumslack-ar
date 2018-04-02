@@ -1,11 +1,27 @@
 <resources>
-    <string name="app_name">WXSample</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_fragment">FragmentActivity</string>
 
     <string name="loadLocal">本地加载WeexJS</string>
     <string name="loadNet">网络加载WeexJS</string>
     <string name="loadFragment">加载到Fragment</string>
+
+    <!--导航相关-->
+    <string name="app_id">5a98b658</string>
+    <string name="congestion">避免拥堵</string>
+    <string name="cost">避免收费</string>
+    <string name="avoidhightspeed">不走高速</string>
+    <string name="hightspeed">高速优先</string>
+
+    <string name="cpu_not_support_tip">
+        Sorry, your current device is x86 architecture.\n We only
+        support arm architecture devices!
+    </string>
+
+    <string name="index_tip">Network Error!\n1.Make sure you use the command "npm run serve"
+        launched local service\n2.Make sure you modify "your_current_ip" to your local IP in
+        "WXMainActivity"
+    </string>
+
 </resources>

@@ -1,19 +1,42 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
 apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.2"
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
     defaultConfig {
         applicationId "com.sumslack.opensource"
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         /**
          * 必须加，否则64位手机无法加载so文件
          */
-        ndk {
+        ndk{
             abiFilters "x86"
+            abiFilters "x86_64"
             abiFilters "armeabi"
         }
     }
@@ -33,19 +56,26 @@ android {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:recyclerview-v7:27.0.2'
-
-    compile 'com.android.support:percent:27.0.2'
-
-    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+    /*
+    图片选取
+     */
+    compile project(':imagepickermodule')
 
     compile 'com.android.support:support-v4:27.0.2'
     compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.alibaba:fastjson:1.1.45'
-    compile 'com.taobao.android:weex_sdk:0.10.0@aar'
+    compile 'com.alibaba:fastjson:1.1.46.android'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:percent:27.0.2'
     compile 'com.android.support:design:27.0.2'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+    provided 'com.squareup.okhttp:okhttp-ws:2.3.0'
+
+    compile 'com.taobao.android:weex_sdk:0.18.0@aar'
+    debugCompile 'com.taobao.android:weex_analyzer:0.1.0.5'
+    compile 'com.taobao.android.weex_inspection:protocol:1.1.4.1'
+    compile 'com.taobao.android.weex_inspection:urlconnection_interceptor:1.0.0'
+    compile 'com.facebook.fresco:fresco:0.10.0'
 
     /**
      * 二维码扫描
@@ -55,9 +85,9 @@ dependencies {
     /**
      * 浏览器扩展
      */
-    compile 'com.just.agentweb:agentweb:4.0.0-beta'
-    compile 'com.just.agentweb:download:4.0.0-beta'
-    compile 'com.just.agentweb:filechooser:4.0.0-beta'
+    compile 'com.just.agentweb:agentweb:4.0.1'
+    compile 'com.just.agentweb:download:4.0.1'
+    compile 'com.just.agentweb:filechooser:4.0.1'
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     compile 'com.github.lzyzsd:jsbridge:1.0.4'
     compile 'com.google.code.gson:gson:2.8.2'
@@ -69,6 +99,17 @@ dependencies {
     Show ActionSheet Menu
      */
     compile 'com.baoyz.actionsheet:library:1.1.7'
+    /*
+    * GaoDe API
+     */
+    compile 'com.amap.api:location:latest.integration'//定位
+    compile 'com.amap.api:search:latest.integration'//搜索
+    compile 'com.amap.api:navi-3dmap:latest.integration'//导航
+
+    /**图片预览**/
+    compile 'me.kareluo.intensify:image:1.1.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
     testCompile 'junit:junit:4.12'
 }

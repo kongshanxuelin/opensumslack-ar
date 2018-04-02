@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by Administrator on 2018/2/22/022.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity{
     private static final String TAG = "BaseActivity";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

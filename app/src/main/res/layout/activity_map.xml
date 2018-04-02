@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                        <AutoCompleteTextView
+                            android:id="@+id/keyWord"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:completionThreshold="1"
+                            android:dropDownVerticalOffset="1.0dip"
+                            android:hint="请输入关键字"
+                            android:imeOptions="actionDone"
+                            android:inputType="text|textAutoComplete"
+                            android:maxLength="20"
+                            android:paddingRight="37.0dip"
+                            android:singleLine="true"
+                            android:textColor="#000000"
+                            android:textSize="16.0sp" />
+                        <Button
+                            android:id="@+id/keyWordBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="选定" />
+                        <Button
+                            android:id="@+id/keyWordCancel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="取消" />
+
+                </LinearLayout>
+        </LinearLayout>
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <ListView
+            android:id="@+id/locListView"
+            android:choiceMode="singleChoice"
+            android:layout_width="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
+            android:layout_height="250dp"></ListView>
+
+</LinearLayout>
