@@ -18,6 +18,8 @@ OpenSumslack安卓版下载：
 
 ![OpenSumslack安卓版下载](http://wxapps.sumslack.com/opensumslack/dl_opensumslack.jpg)
 
+> 注：如果无法下载，直接在浏览器输入(http://wxapps.sumslack.com/opensumslack/openSumslack.apk)
+
 OpenSumslack iOS版下载：
 
 ![OpenSumslack iOS版下载 - 扫一扫](http://h5.sumslack.com/pindazi.png)
