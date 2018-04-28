@@ -41,6 +41,8 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
+
 public class NetworkActivity extends AbstractWeexActivity {
 
   private static final String TAG = "NetworkActivity";
@@ -198,7 +200,7 @@ public class NetworkActivity extends AbstractWeexActivity {
           mToolbar.getMenu().clear();
           for(int i=0;i<items.size();i++){
             JSONObject menuItem = items.getJSONObject(i);
-            mToolbar.getMenu().add(StrUtil.formatMullStr(menuItem.get("title")));
+            mToolbar.getMenu().add(StrUtil.formatMullStr(menuItem.get("title"))).setShowAsAction(SHOW_AS_ACTION_IF_ROOM);
           }
           mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -212,6 +214,7 @@ public class NetworkActivity extends AbstractWeexActivity {
                 _href = _href.substring("javascript:".length());
                 Log.d(TAG,"call js func:"+_href);
                 mInstance.fireGlobalEventCallback(_href,params);
+                return true;
               }else if(_href.startsWith("http://") || _href.startsWith("https://")){
                 SumslackUtil.openWebview(NetworkActivity.this,_href);
               }

@@ -32,6 +32,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -80,6 +81,9 @@ public class IndexActivity extends AbstractWeexActivity implements IWXRenderList
     private TextView mTipView;
     private BroadcastReceiver mReloadReceiver;
 
+    //weex url
+    private EditText et_weexurl;
+
     //Weex
     //private static String TEST_URL = "http://192.168.1.154:8081/index.weex.js";
 
@@ -102,6 +106,8 @@ public class IndexActivity extends AbstractWeexActivity implements IWXRenderList
         mTipView = (TextView) findViewById(R.id.index_tip);
         mProgressBar.setVisibility(View.VISIBLE);
         mTipView.setVisibility(View.VISIBLE);
+
+        et_weexurl = (EditText)findViewById(R.id.et_wxurl);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navView = (NavigationView)findViewById(R.id.nav_view);
@@ -191,10 +197,15 @@ public class IndexActivity extends AbstractWeexActivity implements IWXRenderList
     }
 
     private void renderPage(){
-        if(TEST_URL.startsWith("http://")){
-            renderPageByURL(TEST_URL);
+        String url = et_weexurl.getText().toString();
+        if(!url.equals("")){
+            renderPageByURL(url);
         }else{
-            renderPage(WXFileUtils.loadAsset(TEST_URL, this), null);
+            if(TEST_URL.startsWith("http://")){
+                renderPageByURL(TEST_URL);
+            }else{
+                renderPage(WXFileUtils.loadAsset(TEST_URL, this), null);
+            }
         }
     }
 

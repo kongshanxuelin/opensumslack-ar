@@ -308,7 +308,12 @@ public class SumslackModule extends WXModule{
             url = url.substring("file://assets".length());
         }
         Intent intent = new Intent(mWXSDKInstance.getContext(), NetworkActivity.class);
-        url = getBaseUrl() + url;
+        if(url.startsWith("http://") || url.startsWith("https://")){
+            ;
+        }else{
+            url = getBaseUrl() + url;
+        }
+
         Log.d(TAG,"url:" +url);
         intent.putExtra("url",url);
         mWXSDKInstance.getContext().startActivity(intent);
@@ -345,6 +350,11 @@ public class SumslackModule extends WXModule{
         if(getActivity()!=null && getActivity() instanceof  NetworkActivity)
             getActivity().finish();
         Intent intent = new Intent(WXApplication.getContext(), NetworkActivity.class);
+        if(url.startsWith("http://") || url.startsWith("https://")){
+            ;
+        }else{
+            url = getBaseUrl() + url;
+        }
         url = getBaseUrl() + url;
         intent.putExtra("url",url);
         WXApplication.getContext().startActivity(intent);
